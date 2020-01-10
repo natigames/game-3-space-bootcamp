@@ -10,6 +10,10 @@ public class Player : MonoBehaviour
     [SerializeField] float moveSpeed = 10f;
     // Padding from Borders
     [SerializeField] float padding = 1f;
+    // Load the Laser button
+    [SerializeField] GameObject laserPrefab;
+    // Define Vertical Speed
+    [SerializeField] float projectileSpeed = 10f;
 
     float xMin;
     float xMax;
@@ -22,22 +26,24 @@ public class Player : MonoBehaviour
         SetupMoveBoundaries();
     }
 
-    private void SetupMoveBoundaries()
-    {
-        // What camera
-        Camera gameCamera = Camera.main;
-        // Get The value of the X element for our Viewport from Camera
-        // Refer to slides to understand Viewport pos (0,0:1,0:1,1:0,1)
-        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
-        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
-        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
-        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
-    }
 
     // Update is called once per frame
     void Update()
     {
         Move();
+        Fire();
+    }
+
+    private void Fire()
+    {
+        if (Input.GetButtonDown("Fire1"))
+        {
+            //Q.id = use current rotation (assign to var: laser)
+            GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
+            //Remember laser needs to be a rigid body (hint: change body type to kinematic)
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+        }
+
     }
 
     private void Move()
@@ -52,4 +58,19 @@ public class Player : MonoBehaviour
         // move sideways
         transform.position = new Vector2(newXPos, newYPos);
     }
+
+
+
+    private void SetupMoveBoundaries()
+    {
+        // What camera
+        Camera gameCamera = Camera.main;
+        // Get The value of the X element for our Viewport from Camera
+        // Refer to slides to understand Viewport pos (0,0:1,0:1,1:0,1)
+        xMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).x + padding;
+        xMax = gameCamera.ViewportToWorldPoint(new Vector3(1, 0, 0)).x - padding;
+        yMin = gameCamera.ViewportToWorldPoint(new Vector3(0, 0, 0)).y + padding;
+        yMax = gameCamera.ViewportToWorldPoint(new Vector3(0, 1, 0)).y - padding;
+    }
+
 }
