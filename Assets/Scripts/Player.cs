@@ -15,6 +15,11 @@ public class Player : MonoBehaviour
     // Define Vertical Speed
     [SerializeField] float projectileSpeed = 10f;
 
+    [SerializeField] float projectileFiringPeriod = 0.1f;
+
+    // Hold a Coroutine
+    Coroutine firingCoroutine;
+
     float xMin;
     float xMax;
     float yMin;
@@ -38,12 +43,28 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            firingCoroutine = StartCoroutine(FireContinuously());
+        }
+        if (Input.GetButtonUp("Fire1"))
+        {
+            StopCoroutine(firingCoroutine);
+        }
+
+    }
+
+    //This is a Coroutine
+    IEnumerator FireContinuously()
+    {
+        // While spacebar is held (or Sub being called)
+        while (true)
+        { 
             //Q.id = use current rotation (assign to var: laser)
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             //Remember laser needs to be a rigid body (hint: change body type to kinematic)
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            //Do (separately) and return control meanwhile
+            yield return new WaitForSeconds(projectileFiringPeriod);
         }
-
     }
 
     private void Move()
