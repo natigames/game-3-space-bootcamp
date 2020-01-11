@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &9221644799855396769
+--- !u!1 &5762587661056559471
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9221644799855396771}
-  - component: {fileID: 9221644799855396768}
-  - component: {fileID: 9221644799855396770}
+  - component: {fileID: 5762587661056559457}
+  - component: {fileID: 5762587661056559470}
+  - component: {fileID: 5762587661056559456}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -18,27 +18,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &9221644799855396771
+--- !u!4 &5762587661056559457
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9221644799855396769}
+  m_GameObject: {fileID: 5762587661056559471}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4.15, z: -0.07}
+  m_LocalPosition: {x: 0, y: -4.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &9221644799855396768
+--- !u!212 &5762587661056559470
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9221644799855396769}
+  m_GameObject: {fileID: 5762587661056559471}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,23 +74,27 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.25, y: 1.25}
+  m_Size: {x: 0.8333333, y: 0.8333333}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9221644799855396770
+--- !u!114 &5762587661056559456
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9221644799855396769}
+  m_GameObject: {fileID: 5762587661056559471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdc74a3588f1b41428ae350d3d549446, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f45f006819ae49c9b613a5243cf0680, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
   padding: 1
+  laserPrefab: {fileID: 4689461248107437675, guid: 2d2a1b5ef3b1f430597a06df10ce0644,
+    type: 3}
+  projectileSpeed: 10
+  projectileFiringPeriod: 0.1

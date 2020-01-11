@@ -14,10 +14,10 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject laserPrefab;
     // Define Vertical Speed
     [SerializeField] float projectileSpeed = 10f;
-
+    // Define Duration of Fire
     [SerializeField] float projectileFiringPeriod = 0.1f;
 
-    // Hold a Coroutine
+    // Hold a Coroutine (handle)
     Coroutine firingCoroutine;
 
     float xMin;
@@ -57,7 +57,7 @@ public class Player : MonoBehaviour
     {
         // While spacebar is held (or Sub being called)
         while (true)
-        { 
+        {
             //Q.id = use current rotation (assign to var: laser)
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             //Remember laser needs to be a rigid body (hint: change body type to kinematic)
@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
         var deltaY = Input.GetAxis("Vertical") * Time.deltaTime * moveSpeed;
         // define NewPosition (and clap limits)
         var newXPos = Mathf.Clamp(transform.position.x + deltaX, xMin, xMax);
-        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);        
+        var newYPos = Mathf.Clamp(transform.position.y + deltaY, yMin, yMax);
         // move sideways
         transform.position = new Vector2(newXPos, newYPos);
     }
