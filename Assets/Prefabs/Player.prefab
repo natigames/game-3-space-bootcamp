@@ -98,6 +98,8 @@ MonoBehaviour:
   health: 1000
   PlayerDieSound: {fileID: 8300000, guid: a9d82da159491c2459982b219d799bcc, type: 3}
   PlayerFireSound: {fileID: 8300000, guid: b2dd8572eb0944843be909b32550c1a5, type: 3}
+  deathVFX: {fileID: 5605248837968890480, guid: eb51eede5cab846399f6a6951c80b4d2,
+    type: 3}
   deathSoundVolume: 0.7
   fireSoundVolume: 0.19
   laserPrefab: {fileID: 4689461248107437675, guid: 2d2a1b5ef3b1f430597a06df10ce0644,

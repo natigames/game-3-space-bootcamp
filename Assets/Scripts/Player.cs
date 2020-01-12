@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class Player : MonoBehaviour
     [SerializeField] int health = 200;
     [SerializeField] AudioClip PlayerDieSound;
     [SerializeField] AudioClip PlayerFireSound;
+    [SerializeField] GameObject deathVFX;
+
     [Range(0, 1)] [SerializeField] float deathSoundVolume = 0.7f;
     [Range(0, 1)] [SerializeField] float fireSoundVolume = 0.5f;
 
@@ -92,10 +95,13 @@ public class Player : MonoBehaviour
         health -= damageDealer.GetDamage();
         damageDealer.Hit();
         if (health <= 0) {
+            FindObjectOfType<Level>().LoadGameOver();
             // PLay sound and store so it won't be destroyed
             AudioSource.PlayClipAtPoint(PlayerDieSound, Camera.main.transform.position, deathSoundVolume);
-            Destroy(gameObject);
+            GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
 
+
+            Destroy(gameObject);
         }
     }
 

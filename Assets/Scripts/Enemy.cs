@@ -77,9 +77,9 @@ public class Enemy : MonoBehaviour
 
         // PLay sound and store so it won't be destroyed
         AudioSource.PlayClipAtPoint(enemyDieSound, Camera.main.transform.position, deathSoundVolume);
+        GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
 
         Destroy(gameObject);
-        GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
         Destroy(explosion, durationOfExplosion);
     }
 }
