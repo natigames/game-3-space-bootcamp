@@ -10,6 +10,12 @@ public class Enemy : MonoBehaviour
     [SerializeField] float shotCounter;
     [SerializeField] float minTimeBetweenShots = 0.2f;
     [SerializeField] float maxTimeBetweenShots = 3f;
+    [SerializeField] GameObject deathVFX;
+    [SerializeField] float durationOfExplosion = 1f;
+    [SerializeField] AudioClip enemyDieSound;
+    [SerializeField] AudioClip enemyFireSound;
+    [Range(0,1)] [SerializeField] float deathSoundVolume = 0.7f;
+
 
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float projectileSpeed = 10f;
@@ -44,20 +50,36 @@ public class Enemy : MonoBehaviour
 
         // negative speed to make it shoot down
         laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed);
+
+        // PLay sound and store so it won't be destroyed
+        AudioSource.PlayClipAtPoint(enemyFireSound, Camera.main.transform.position);
+
     }
 
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        NewMethod(damageDealer);
+        if (!damageDealer) { return; } // protect vs null
+        ProcessHit(damageDealer);
 
     }
 
-    private void NewMethod(DamageDealer damageDealer)
+    private void ProcessHit(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
+        damageDealer.Hit();
+        if (health <= 0) { Die(); }
+    }
 
-        if (health <= 0) { Destroy(gameObject); }
+    private void Die()
+    {
+
+        // PLay sound and store so it won't be destroyed
+        AudioSource.PlayClipAtPoint(enemyDieSound, Camera.main.transform.position, deathSoundVolume);
+
+        Destroy(gameObject);
+        GameObject explosion = Instantiate(deathVFX, transform.position, transform.rotation);
+        Destroy(explosion, durationOfExplosion);
     }
 }

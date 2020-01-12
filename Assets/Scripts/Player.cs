@@ -12,6 +12,10 @@ public class Player : MonoBehaviour
     // Padding from Borders
     [SerializeField] float padding = 1f;
     [SerializeField] int health = 200;
+    [SerializeField] AudioClip PlayerDieSound;
+    [SerializeField] AudioClip PlayerFireSound;
+    [Range(0, 1)] [SerializeField] float deathSoundVolume = 0.7f;
+    [Range(0, 1)] [SerializeField] float fireSoundVolume = 0.5f;
 
 
     [Header("Projectile")]
@@ -67,6 +71,8 @@ public class Player : MonoBehaviour
             GameObject laser = Instantiate(laserPrefab, transform.position, Quaternion.identity) as GameObject;
             //Remember laser needs to be a rigid body (hint: change body type to kinematic)
             laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+            AudioSource.PlayClipAtPoint(PlayerDieSound, Camera.main.transform.position, fireSoundVolume);
+
             //Do (separately) and return control meanwhile
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
@@ -76,14 +82,21 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        NewMethod(damageDealer);
+        if (!damageDealer) { return; } // protect vs null
+        Die(damageDealer);
 
     }
 
-    private void NewMethod(DamageDealer damageDealer)
+    private void Die(DamageDealer damageDealer)
     {
         health -= damageDealer.GetDamage();
-        if (health <= 0) { Destroy(gameObject); }
+        damageDealer.Hit();
+        if (health <= 0) {
+            // PLay sound and store so it won't be destroyed
+            AudioSource.PlayClipAtPoint(PlayerDieSound, Camera.main.transform.position, deathSoundVolume);
+            Destroy(gameObject);
+
+        }
     }
 
 

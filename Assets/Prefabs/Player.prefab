@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5762587661056559470}
   - component: {fileID: 5762587661056559456}
   - component: {fileID: 60442134559299622}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,7 +95,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   padding: 1
-  health: 200
+  health: 1000
+  PlayerDieSound: {fileID: 8300000, guid: a9d82da159491c2459982b219d799bcc, type: 3}
+  PlayerFireSound: {fileID: 8300000, guid: b2dd8572eb0944843be909b32550c1a5, type: 3}
+  deathSoundVolume: 0.7
+  fireSoundVolume: 0.19
   laserPrefab: {fileID: 4689461248107437675, guid: 2d2a1b5ef3b1f430597a06df10ce0644,
     type: 3}
   projectileSpeed: 10
