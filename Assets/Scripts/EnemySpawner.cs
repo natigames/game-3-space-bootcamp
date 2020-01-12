@@ -45,6 +45,8 @@ public class EnemySpawner : MonoBehaviour
                     waveConfig.GetWayPoints()[0].transform.position,
                     Quaternion.identity);
 
+            newEnemy.transform.rotation = Quaternion.Euler(180, 0, 0);
+
             newEnemy.GetComponent<EnemyPathing>().SetWaveConfig(waveConfig);
 
 

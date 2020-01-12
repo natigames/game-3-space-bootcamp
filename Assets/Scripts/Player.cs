@@ -6,10 +6,15 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
+    [Header("Player")]
     // Game Settings (speed for player)
     [SerializeField] float moveSpeed = 10f;
     // Padding from Borders
     [SerializeField] float padding = 1f;
+    [SerializeField] int health = 200;
+
+
+    [Header("Projectile")]
     // Load the Laser button
     [SerializeField] GameObject laserPrefab;
     // Define Vertical Speed
@@ -66,6 +71,21 @@ public class Player : MonoBehaviour
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
+
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+        NewMethod(damageDealer);
+
+    }
+
+    private void NewMethod(DamageDealer damageDealer)
+    {
+        health -= damageDealer.GetDamage();
+        if (health <= 0) { Destroy(gameObject); }
+    }
+
 
     private void Move()
     {
