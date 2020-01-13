@@ -105,6 +105,8 @@ public class Player : MonoBehaviour
         }
     }
 
+    public int GetHealth() { return health; }
+
 
     private void Move()
     {
